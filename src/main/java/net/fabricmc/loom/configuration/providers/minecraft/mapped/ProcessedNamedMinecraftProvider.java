@@ -35,7 +35,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.gradle.api.Project;
+import org.gradle.api.provider.Property;
 
+import net.fabricmc.loom.LoomGradleExtension;
 import net.fabricmc.loom.configuration.ConfigContext;
 import net.fabricmc.loom.configuration.mods.dependency.LocalMavenHelper;
 import net.fabricmc.loom.configuration.processors.MinecraftJarProcessorManager;
@@ -130,6 +132,12 @@ public abstract class ProcessedNamedMinecraftProvider<M extends MinecraftProvide
 	@Override
 	protected String getName(String name) {
 		final Project project = getProject();
+
+		Property<Boolean> forceShare = LoomGradleExtension.get(getProject()).getForceShareMinecraftJarBetweenSubModules();
+
+		if (forceShare.get()) {
+			return "minecraft-%s-project-forceshare".formatted(name).toLowerCase(Locale.ROOT);
+		}
 
 		if (project.getRootProject() == project) {
 			return "minecraft-%s-project-root".formatted(name).toLowerCase(Locale.ROOT);

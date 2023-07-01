@@ -155,6 +155,8 @@ public interface LoomGradleExtensionAPI {
 	 */
 	Property<Boolean> getEnableTransitiveAccessWideners();
 
+	Property<Boolean> getForceShareMinecraftJarBetweenSubModules();
+
 	/**
 	 * When true loom will apply mod provided javadoc from dependencies.
 	 *

@@ -72,6 +72,7 @@ public abstract class LoomGradleExtensionApiImpl implements LoomGradleExtensionA
 	protected final RegularFileProperty accessWidener;
 	protected final Property<String> customManifest;
 	protected final Property<Boolean> transitiveAccessWideners;
+	protected final Property<Boolean> forceShareMinecraftJarBetweenSubModules;
 	protected final Property<Boolean> modProvidedJavadoc;
 	protected final Property<String> intermediary;
 	protected final Property<IntermediateMappingsProvider> intermediateMappingsProvider;
@@ -101,6 +102,8 @@ public abstract class LoomGradleExtensionApiImpl implements LoomGradleExtensionA
 		this.transitiveAccessWideners = project.getObjects().property(Boolean.class)
 				.convention(true);
 		this.transitiveAccessWideners.finalizeValueOnRead();
+		this.forceShareMinecraftJarBetweenSubModules = project.getObjects().property(Boolean.class)
+				.convention(false);
 		this.modProvidedJavadoc = project.getObjects().property(Boolean.class)
 				.convention(true);
 		this.modProvidedJavadoc.finalizeValueOnRead();
@@ -236,6 +239,11 @@ public abstract class LoomGradleExtensionApiImpl implements LoomGradleExtensionA
 	@Override
 	public Property<Boolean> getEnableTransitiveAccessWideners() {
 		return transitiveAccessWideners;
+	}
+
+	@Override
+	public Property<Boolean> getForceShareMinecraftJarBetweenSubModules() {
+		return forceShareMinecraftJarBetweenSubModules;
 	}
 
 	@Override
